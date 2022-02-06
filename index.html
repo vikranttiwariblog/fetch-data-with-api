@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>fetch data with api</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        #container {
+            height: 100vh;
+            width: 100%;
+            position: relative;
+            background: rgba(0, 0, 0, 0.692);
+        }
+
+        .inner-container {
+            width: 800px;
+            height: 300px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+        }
+
+        h1 {
+            text-align: center;
+            text-transform: uppercase;
+            font-size: 30px;
+            font-weight: bold;
+            margin: 20px 0 50px 0;
+        }
+
+        .joke-btn {
+            position: absolute;
+            bottom: 15px;
+            width: 100%;
+            text-align: center;
+        }
+
+        #btn {
+            padding: 5px;
+            font-size: 20px;
+            background: #117964;
+            color: white;
+        }
+
+        .jokes {
+            width: 700px;
+            height: 180px;
+            margin: auto;
+        }
+
+        p {
+            font-size: 25px;
+            margin: 40px 10px;
+            padding: 3px;
+            text-align: justify;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div id="container">
+        <div class="inner-container">
+            <h1>awonsome jokes</h1>
+            <div class="jokes">
+                <p id="joke">awansome jokes are loading......</p>
+            </div>
+            <div class="joke-btn"><button id="btn">Next jokes</button></div>
+        </div>
+    </div>
+
+    <script>
+
+        let joke = document.getElementById("joke");
+        let btn = document.getElementById("btn");
+
+        // fetch api with the help of promises
+        // let setHeader = {
+        //     headers: {
+        //         Accept: 'application/json'
+        //     }
+        // }
+
+        // let generateJokes = () => {
+        //     fetch('https://icanhazdadjoke.com', setHeader)
+        //         .then((res) => res.json()).then((data) => joke.innerHTML = data.joke)
+        //         .catch((err) => { console.log(err); })
+        // }
+
+        // btn.addEventListener("click", generateJokes);
+        // generateJokes();
+
+        // fetch api with the help of async await
+        let generateJokes = async () => {
+
+            try {
+                let setHeader = {
+                    headers: {
+                        Accept: "application/json"
+                    }
+                }
+                let res = await fetch("https://icanhazdadjoke.com", setHeader);
+                let data = await res.json();
+                joke.innerHTML = data.joke;
+            } catch (error) {
+                console.log(error);
+            }
+
+        }
+
+        btn.addEventListener("click", generateJokes);
+        generateJokes();
+
+    </script>
+</body>
+
+</html>
